@@ -83,7 +83,7 @@
                 </executions>
             </plugin>
 
-            <!-- Surefire Plugin for Running Tests
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
@@ -94,7 +94,7 @@
                     </includes>
                 </configuration>
             </plugin>
-            -->
+
         </plugins>
     </build>
 
