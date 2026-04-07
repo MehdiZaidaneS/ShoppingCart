@@ -1,0 +1,32 @@
+version: "3.9"
+
+services:
+  db:
+    image: mariadb:11
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: mehdizaidane1
+      MYSQL_DATABASE: shopping_cart_localization
+      MYSQL_CHARSET: utf8mb4
+    ports:
+      - "3307:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+
+  app:
+    build: .
+    depends_on:
+      - db
+    environment:
+      DB_HOST: db
+      DB_PORT: 3306
+      DB_USER: root
+      DB_PASSWORD: mehdizaidane1
+      DISPLAY: host.docker.internal:0
+    volumes:
+      - ./src:/app/src
+      - /tmp/.X11-unix:/tmp/.X11-unix
+
+volumes:
+  db_data:

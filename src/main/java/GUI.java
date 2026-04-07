@@ -9,12 +9,14 @@ import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.ResourceBundle;
+import java.util.*;
 
 public class GUI extends Application {
-    ResourceBundle rb;
+    Map<String, String> rb = new HashMap<>();
+    LocalizationService ls = new LocalizationService();
+    CartService cs = new CartService();
+    String currentLanguage = "en";
+
     ShoppingCart sc = new ShoppingCart();
 
     Label enterNumber;
@@ -40,7 +42,7 @@ public class GUI extends Application {
 
     @Override
     public void start(Stage primaryStage){
-        rb = ResourceBundle.getBundle("MessagesBundle", sc.getLocale("english"));
+        rb = ls.getStrings(currentLanguage);
 
         root = new VBox();
 
@@ -53,12 +55,21 @@ public class GUI extends Application {
         dropdown.setValue("English");
         Button confirm = new Button("Confirm Language");
 
-        confirm.setOnAction(event ->{
-           String select = dropdown.getValue();
-           rb = ResourceBundle.getBundle("MessagesBundle", sc.getLocale(select));
+        confirm.setOnAction(event -> {
+            String select = dropdown.getValue();
 
-           updateTexts();
-           updateOrientation(select);
+            switch (select.toLowerCase()) {
+                case "finnish": currentLanguage = "fi"; break;
+                case "swedish": currentLanguage = "sv"; break;
+                case "japanese": currentLanguage = "ja"; break;
+                case "arabic": currentLanguage = "ar"; break;
+                default: currentLanguage = "en";
+            }
+
+            rb = ls.getStrings(currentLanguage);
+
+            updateTexts();
+            updateOrientation(select);
         });
 
 
@@ -67,9 +78,9 @@ public class GUI extends Application {
 
 
 
-        enterNumber = new Label(rb.getString("prompt1"));
+        enterNumber = new Label(rb.get("prompt1"));
         TextField tf = new TextField();
-        enterItems = new Button(rb.getString("button1"));
+        enterItems = new Button(rb.get("button1"));
 
         VBox inputElements = new VBox();
         inputElements.setSpacing(10);
@@ -84,7 +95,7 @@ public class GUI extends Application {
             for (int i = 0; i<Integer.parseInt(tf.getText()); i++){
                 VBox price = new VBox();
 
-                enterPrice = new Label(rb.getString("prompt2"));
+                enterPrice = new Label(rb.get("prompt2"));
                 priceLabels.add(enterPrice);
 
                 TextField newTextField = new TextField();
@@ -99,7 +110,7 @@ public class GUI extends Application {
 
                 VBox amount = new VBox();
 
-                enterQuantity = new Label(rb.getString("prompt3"));
+                enterQuantity = new Label(rb.get("prompt3"));
                 quantityLabels.add(enterQuantity);
 
 
@@ -129,11 +140,13 @@ public class GUI extends Application {
         VBox.setVgrow(spacer, Priority.ALWAYS);
 
 
-        calculateTotal = new Button(rb.getString("calculateTotal"));
-        total = new Label(rb.getString("prompt4") + totalAmount);
+        calculateTotal = new Button(rb.get("calculateTotal"));
+        total = new Label(rb.get("prompt4") + totalAmount);
 
         calculateTotal.setOnAction(event -> {
             sc.setSumTotalCart();
+
+            int totalItems = priceFields.size();
 
             for (int i = 0; i < priceFields.size(); i++) {
                 try {
@@ -149,7 +162,17 @@ public class GUI extends Application {
             }
 
             totalAmount = sc.getTotal();
-            total.setText(rb.getString("prompt4") + totalAmount);
+            total.setText(rb.get("prompt4") + totalAmount);
+
+
+            int cartId = cs.saveCart(totalItems, totalAmount, currentLanguage);
+
+            for (int i = 0; i < priceFields.size(); i++) {
+                int price = Integer.parseInt(priceFields.get(i).getText());
+                int quantity = Integer.parseInt(quantityFields.get(i).getText());
+
+                cs.saveItem(cartId, i + 1, price, quantity);
+            }
         });
 
 
@@ -171,18 +194,18 @@ public class GUI extends Application {
     }
 
     private void updateTexts() {
-        enterNumber.setText(rb.getString("prompt1"));
-        enterItems.setText(rb.getString("button1"));
-        calculateTotal.setText(rb.getString("calculateTotal"));
-        total.setText(rb.getString("prompt4"));
+        enterNumber.setText(rb.get("prompt1"));
+        enterItems.setText(rb.get("button1"));
+        calculateTotal.setText(rb.get("calculateTotal"));
+        total.setText(rb.get("prompt4"));
 
-        total.setText(rb.getString("prompt4") + totalAmount);
+        total.setText(rb.get("prompt4") + totalAmount);
 
         for(Label label : priceLabels){
-            label.setText(rb.getString("prompt2"));
+            label.setText(rb.get("prompt2"));
         }
         for(Label label : quantityLabels){
-            label.setText(rb.getString("prompt3"));
+            label.setText(rb.get("prompt3"));
         }
 
 
