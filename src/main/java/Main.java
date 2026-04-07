@@ -1,10 +1,10 @@
-import javafx.application.Application;
+    import javafx.application.Application;
 
-public class Main {
-    public static void main(String[] args){
+    public class Main {
+        public static void main(String[] args){
 
-        Application.launch(GUI.class);
+            Application.launch(GUI.class);
 
 
+        }
     }
-}
