@@ -39,7 +39,7 @@
 # ---------------------------
 FROM eclipse-temurin:21-jdk AS build
 
-# Install dependencies for Maven build and GUI
+# Install dependencies for Maven build and gui.gui
 RUN apt-get update && \
     apt-get install -y maven wget unzip libgtk-3-0 libgbm1 libx11-6 && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
@@ -63,7 +63,7 @@ RUN mvn clean package -DskipTests
 # ---------------------------
 FROM eclipse-temurin:21-jre
 
-# Install GUI dependencies
+# Install gui.gui dependencies
 RUN apt-get update && \
     apt-get install -y libgtk-3-0 libgbm1 libx11-6 \
     fonts-noto-cjk fonts-ipafont fonts-unfonts-core \

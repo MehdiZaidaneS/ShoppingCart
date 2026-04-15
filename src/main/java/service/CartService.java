@@ -1,8 +1,18 @@
+package service;
+
+import database.DatabaseConnection;
+
 import java.sql.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class CartService {
 
+    private static final Logger logger = Logger.getLogger(CartService.class.getName());
+
     public int saveCart(int totalItems, double totalCost, String language) {
+
+
         String sql = "INSERT INTO cart_records (total_items, total_cost, language) VALUES (?, ?, ?)";
 
         try (Connection conn = DatabaseConnection.getConnection();
@@ -20,7 +30,7 @@ public class CartService {
             }
 
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.log(Level.SEVERE, e, () -> "Failed to save cart");
         }
 
         return -1;
@@ -43,7 +53,7 @@ public class CartService {
             stmt.executeUpdate();
 
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.log(Level.SEVERE, e, () -> "Failed to save cart item for cartId=" + cartId);
         }
     }
 }

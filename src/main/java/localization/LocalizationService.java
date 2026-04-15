@@ -1,10 +1,18 @@
+package localization;
+
+import database.DatabaseConnection;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class LocalizationService {
+
+    private static final Logger logger = Logger.getLogger(LocalizationService.class.getName());
 
     public Map<String, String> getStrings(String language) {
         Map<String, String> map = new HashMap<>();
@@ -23,7 +31,7 @@ public class LocalizationService {
             }
 
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.log(Level.SEVERE, e, () -> "Failed to load localization strings for language: " + language);
         }
 
         return map;

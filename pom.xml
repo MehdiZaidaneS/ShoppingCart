@@ -12,6 +12,7 @@
         <maven.compiler.source>21</maven.compiler.source>
         <maven.compiler.target>21</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <sonar.projectKey>shoppingCarCalc</sonar.projectKey>
     </properties>
 
 
@@ -50,7 +51,7 @@
                 <artifactId>javafx-maven-plugin</artifactId>
                 <version>0.0.8</version>
                 <configuration>
-                    <mainClass>GUI</mainClass>
+                    <mainClass>gui.GUI</mainClass>
                 </configuration>
             </plugin>
             <!-- Maven Compiler Plugin -->
@@ -74,7 +75,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>Main</mainClass>
+                            <mainClass>main.Main</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
@@ -99,10 +100,10 @@
                         </goals>
                         <configuration>
                             <excludes>
-                                <!-- Exclude GUI and Main classes -->
-                                <exclude>**/GUI.class</exclude>
-                                <exclude>**/Main.class</exclude>
-                                <exclude>**/DatabaseConnection.class</exclude>
+                                <!-- Exclude gui.gui and main.Main classes -->
+                                <exclude>gui/**</exclude>
+                                <exclude>main/**</exclude>
+                                <exclude>database/**</exclude>
                             </excludes>
                         </configuration>
                     </execution>

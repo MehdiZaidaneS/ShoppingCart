@@ -1,4 +1,4 @@
-import javafx.application.Application;
+package cart;
 
 import java.util.*;
 
@@ -16,7 +16,8 @@ public class ShoppingCart {
     }
     public int calculateTotal(int price, int quantity) {
         int sum = price * quantity;
-        return sumTotalCart += sum;
+        sumTotalCart += sum;
+        return sumTotalCart;
     }
 
 
@@ -24,15 +25,15 @@ public class ShoppingCart {
     public Locale getLocale(String language) {
         switch (language.toLowerCase()) {
             case "swedish":
-                return new Locale("sv", "SE");
+                return Locale.of("sv", "SE");
             case "finnish":
-                return new Locale("fi", "FI");
+                return Locale.of("fi", "FI");
             case "japanese":
-                return new Locale("ja", "JP");
+                return Locale.of("ja", "JP");
             case "arabic":
-                return new Locale("ar", "AR");
+                return Locale.of("ar", "AR");
             default:
-                return new Locale("en", "US");
+                return Locale.of("en", "US");
         }
     }
 

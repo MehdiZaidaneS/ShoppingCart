@@ -1,8 +1,11 @@
+package serviceTests;
+
+import service.CartService;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class CartServiceTest {
+class CartServiceTest {
 
     @Test
     void testSaveCartAndItems() {

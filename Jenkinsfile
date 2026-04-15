@@ -16,7 +16,7 @@ pipeline {
 
         stage('Check') {
             steps {
-                git branch: 'main', url: 'https://github.com/MehdiZaidaneS/ShoppingCart.git'
+                git branch: 'main', url: 'https://github.com/MehdiZaidaneS/cart.ShoppingCart.git'
             }
         }
 

@@ -1,3 +1,6 @@
+package cartTests;
+
+import cart.ShoppingCart;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -39,12 +42,12 @@ class ShoppingCartTest {
 
     @Test
     void testGetLocale() {
-        assertEquals(new Locale("fi", "FI"), sc.getLocale("finnish"));
-        assertEquals(new Locale("sv", "SE"), sc.getLocale("swedish"));
-        assertEquals(new Locale("ja", "JP"), sc.getLocale("japanese"));
-        assertEquals(new Locale("ar", "AR"), sc.getLocale("arabic"));
-        assertEquals(new Locale("en", "US"), sc.getLocale("english"));
-        assertEquals(new Locale("en", "US"), sc.getLocale("unknown"));
+        assertEquals(Locale.of("fi", "FI"), sc.getLocale("finnish"));
+        assertEquals(Locale.of("sv", "SE"), sc.getLocale("swedish"));
+        assertEquals(Locale.of("ja", "JP"), sc.getLocale("japanese"));
+        assertEquals(Locale.of("ar", "AR"), sc.getLocale("arabic"));
+        assertEquals(Locale.of("en", "US"), sc.getLocale("english"));
+        assertEquals(Locale.of("en", "US"), sc.getLocale("unknown"));
     }
 
     @Test

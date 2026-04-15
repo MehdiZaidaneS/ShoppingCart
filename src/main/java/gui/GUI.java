@@ -1,3 +1,8 @@
+package gui;
+
+import cart.ShoppingCart;
+import localization.LocalizationService;
+import service.CartService;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.NodeOrientation;
@@ -26,6 +31,7 @@ public class GUI extends Application {
 
     Label enterPrice;
     Label enterQuantity;
+    String totalKey = "prompt4";
 
 
     List<TextField> priceFields = new ArrayList<>();
@@ -141,7 +147,7 @@ public class GUI extends Application {
 
 
         calculateTotal = new Button(rb.get("calculateTotal"));
-        total = new Label(rb.get("prompt4") + totalAmount);
+        total = new Label(rb.get(totalKey) + totalAmount);
 
         calculateTotal.setOnAction(event -> {
             sc.setSumTotalCart();
@@ -162,7 +168,7 @@ public class GUI extends Application {
             }
 
             totalAmount = sc.getTotal();
-            total.setText(rb.get("prompt4") + totalAmount);
+            total.setText(rb.get(totalKey) + totalAmount);
 
 
             int cartId = cs.saveCart(totalItems, totalAmount, currentLanguage);
@@ -197,9 +203,9 @@ public class GUI extends Application {
         enterNumber.setText(rb.get("prompt1"));
         enterItems.setText(rb.get("button1"));
         calculateTotal.setText(rb.get("calculateTotal"));
-        total.setText(rb.get("prompt4"));
+        total.setText(rb.get(totalKey));
 
-        total.setText(rb.get("prompt4") + totalAmount);
+        total.setText(rb.get(totalKey) + totalAmount);
 
         for(Label label : priceLabels){
             label.setText(rb.get("prompt2"));
